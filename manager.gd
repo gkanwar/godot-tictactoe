@@ -18,6 +18,7 @@ enum Intent {DEFAULT, LOBBY_PLAY, LOBBY_HOST}
 signal jumped_to_scene(scene, intent)
 
 func _ready():
+	_jumped_to_scene(Scene.MENU_SCENE, Intent.DEFAULT)
 	jumped_to_scene.connect(_jumped_to_scene)
 
 func _jumped_to_scene(scene: Scene, intent: Intent):

@@ -1,0 +1,104 @@
+[gd_scene load_steps=5 format=3 uid="uid://cbom1q1okdrb8"]
+
+[ext_resource type="Script" path="res://lobby.gd" id="1_siagn"]
+[ext_resource type="PackedScene" uid="uid://b7qb3c2emkd76" path="res://player_slot.tscn" id="2_1bnng"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_km81s"]
+allow_unpress = true
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_gmvxu"]
+allow_unpress = true
+
+[node name="Lobby" type="Control" node_paths=PackedStringArray("player_slots")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_siagn")
+player_slots = [NodePath("MarginContainer/VBoxContainer/PlayerSlot1"), NodePath("MarginContainer/VBoxContainer/PlayerSlot2")]
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"TitleLabel"
+text = "Lobby"
+horizontal_alignment = 1
+
+[node name="PlayerSlot1" parent="MarginContainer/VBoxContainer" instance=ExtResource("2_1bnng")]
+layout_mode = 2
+button_group = SubResource("ButtonGroup_km81s")
+is_host = true
+
+[node name="PlayerSlot2" parent="MarginContainer/VBoxContainer" instance=ExtResource("2_1bnng")]
+layout_mode = 2
+button_group = SubResource("ButtonGroup_gmvxu")
+
+[node name="JoinForm" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="NameField" type="LineEdit" parent="MarginContainer/VBoxContainer/JoinForm"]
+custom_minimum_size = Vector2(175, 45)
+layout_mode = 2
+size_flags_horizontal = 4
+placeholder_text = "Name"
+alignment = 1
+max_length = 20
+
+[node name="HostField" type="LineEdit" parent="MarginContainer/VBoxContainer/JoinForm"]
+custom_minimum_size = Vector2(200, 45)
+layout_mode = 2
+text = "127.0.0.1"
+placeholder_text = "Host IP"
+max_length = 16
+
+[node name="JoinButton" type="Button" parent="MarginContainer/VBoxContainer/JoinForm"]
+custom_minimum_size = Vector2(100, 45)
+layout_mode = 2
+text = "Join"
+
+[node name="HostForm" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="NameField" type="LineEdit" parent="MarginContainer/VBoxContainer/HostForm"]
+custom_minimum_size = Vector2(175, 45)
+layout_mode = 2
+size_flags_horizontal = 4
+placeholder_text = "Name"
+alignment = 1
+max_length = 20
+
+[node name="HostButton" type="Button" parent="MarginContainer/VBoxContainer/HostForm"]
+custom_minimum_size = Vector2(100, 45)
+layout_mode = 2
+text = "Host"
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="StartButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(175, 45)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Start"

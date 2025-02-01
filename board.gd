@@ -69,4 +69,4 @@ func _on_tile_clicked(i, j):
 	if check_game_over():
 		playing = false
 		game.game_over.emit(Global.player)
-	Global.player = Global.switch_player(Global.player)
+	Global.player = Global.other_player(Global.player)

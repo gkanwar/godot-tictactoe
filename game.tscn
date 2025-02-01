@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://game.gd" id="1_ms3vy"]
 [ext_resource type="PackedScene" uid="uid://c5yuvkvhxg37v" path="res://tile.tscn" id="1_oexni"]
 [ext_resource type="Script" path="res://menu.gd" id="4_ok8pt"]
-[ext_resource type="Script" path="res://lobby.gd" id="6_7j5sa"]
+[ext_resource type="PackedScene" uid="uid://cbom1q1okdrb8" path="res://lobby.tscn" id="6_jttpx"]
 
 [node name="Root" type="Node"]
 
@@ -18,7 +18,6 @@ lobby_scene = NodePath("Lobby")
 
 [node name="Game" type="Node2D" parent="SceneManager"]
 unique_name_in_owner = true
-visible = false
 script = ExtResource("1_ms3vy")
 
 [node name="Board" type="Node2D" parent="SceneManager/Game"]
@@ -104,9 +103,4 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Exit"
 
-[node name="Lobby" type="Control" parent="SceneManager"]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("6_7j5sa")
+[node name="Lobby" parent="SceneManager" instance=ExtResource("6_jttpx")]
