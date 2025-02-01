@@ -2,7 +2,7 @@ extends Node
 
 ### GAMEPLAY
 enum Player { PLAYER_X, PLAYER_O }
-var player = Player.PLAYER_X
+var cur_player = Player.PLAYER_X
 
 func other_player(p: Player):
 	if p == Player.PLAYER_X:
@@ -23,6 +23,9 @@ signal server_disconnected()
 var players = {}
 var my_peer_id = 0
 var my_player_info = {}
+
+func get_my_player() -> Player:
+	return players[my_peer_id].selection
 
 func _ready():
 	var scale = DisplayServer.screen_get_scale()

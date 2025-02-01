@@ -7,7 +7,9 @@ extends Control
 @onready var join_button: Button = %JoinForm/JoinButton
 @onready var host_button: Button = %HostForm/HostButton
 @onready var start_button: Button = %StartButton
+@onready var scene_manager: Node = %SceneManager
 
+var player_ids = []
 var player_selections = []
 
 func _ready():
@@ -20,6 +22,7 @@ func _ready():
 	start_button.disabled = true
 	for i in range(len(player_slots)):
 		player_selections.append(null)
+		player_ids.append(0)
 		connect_slot_callback(i)
 
 func connect_slot_callback(i: int):
@@ -28,6 +31,7 @@ func connect_slot_callback(i: int):
 	)
 
 func _player_selected(i: int, player: Global.Player):
+	Global.players[player_ids[i]].selection = player
 	player_selections[i] = player
 	for selection in player_selections:
 		if selection == null:
@@ -39,6 +43,7 @@ func _player_connected(id, info):
 	print("Player connected %s %s" % [id, info])
 	var is_me = id == Global.my_peer_id
 	var idx = 0 if id == 1 else 1
+	player_ids[idx] = id
 	player_slots[idx].connect_player(info, is_me)
 func _player_updated(id, old_info, new_info):
 	print("Player update %s %s -> %s" % [id, old_info, new_info])
@@ -48,6 +53,7 @@ func _player_updated(id, old_info, new_info):
 func _player_disconnected(id):
 	print("Player disconnected %s" % id)
 	var idx = 0 if id == 1 else 1
+	player_ids[idx] = 0
 	player_slots[idx].disconnect_player()
 
 func intent_play():
@@ -81,5 +87,11 @@ func _host_pressed():
 	if error:
 		print("Error %s" % error)
 
+@rpc("any_peer", "call_local", "reliable")
+func launch_game():
+	scene_manager.jumped_to_scene.emit(
+		SceneManager.Scene.GAME_SCENE, SceneManager.Intent.DEFAULT)
+
 func _start_pressed():
 	print("start pressed")
+	launch_game.rpc()

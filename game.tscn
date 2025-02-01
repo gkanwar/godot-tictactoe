@@ -18,6 +18,7 @@ lobby_scene = NodePath("Lobby")
 
 [node name="Game" type="Node2D" parent="SceneManager"]
 unique_name_in_owner = true
+visible = false
 script = ExtResource("1_ms3vy")
 
 [node name="Board" type="Node2D" parent="SceneManager/Game"]
@@ -104,3 +105,4 @@ size_flags_horizontal = 4
 text = "Exit"
 
 [node name="Lobby" parent="SceneManager" instance=ExtResource("6_jttpx")]
+visible = false

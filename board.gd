@@ -57,16 +57,22 @@ func check_game_over():
 		return true
 	return false
 
-func _on_tile_clicked(i, j):
-	if tile_grid[i][j].state != Tile.State.EMPTY:
-		return
-	if not playing:
-		return
-	if Global.player == Global.Player.PLAYER_X:
+@rpc("any_peer", "call_local", "reliable")
+func tile_clicked(i, j):
+	if Global.cur_player == Global.Player.PLAYER_X:
 		tile_grid[i][j].state = Tile.State.X
 	else:
 		tile_grid[i][j].state = Tile.State.O
 	if check_game_over():
 		playing = false
-		game.game_over.emit(Global.player)
-	Global.player = Global.other_player(Global.player)
+		game.game_over.emit(Global.cur_player)
+	Global.cur_player = Global.other_player(Global.cur_player)
+
+func _on_tile_clicked(i, j):
+	if tile_grid[i][j].state != Tile.State.EMPTY:
+		return
+	if not playing:
+		return
+	if Global.get_my_player() != Global.cur_player:
+		return
+	tile_clicked.rpc(i, j)
