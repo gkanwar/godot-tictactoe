@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://c5yuvkvhxg37v"]
+
+[ext_resource type="Texture2D" uid="uid://6pl0oo1lpcr" path="res://assets/icons/cross.png" id="1_5fs21"]
+[ext_resource type="Script" path="res://tile.gd" id="1_dwsdn"]
+[ext_resource type="Texture2D" uid="uid://cw6ricf5ax0k0" path="res://assets/icons/circle.png" id="2_af0yf"]
+
+[sub_resource type="Gradient" id="Gradient_0ev01"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.826666, 0.684195, 0.781098, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yql4y"]
+gradient = SubResource("Gradient_0ev01")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lw3sq"]
+size = Vector2(64, 64)
+
+[node name="Tile" type="Node2D"]
+script = ExtResource("1_dwsdn")
+
+[node name="Background" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_yql4y")
+
+[node name="X" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("1_5fs21")
+region_enabled = true
+region_rect = Rect2(15, 17, 70, 70)
+
+[node name="O" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("2_af0yf")
+region_enabled = true
+region_rect = Rect2(17, 17, 70, 70)
+
+[node name="ClickTarget" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClickTarget"]
+shape = SubResource("RectangleShape2D_lw3sq")
+
+[connection signal="input_event" from="ClickTarget" to="." method="_on_click_target_input_event"]
