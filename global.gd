@@ -25,6 +25,9 @@ var my_peer_id = 0
 var my_player_info = {}
 
 func _ready():
+	var scale = DisplayServer.screen_get_scale()
+	get_tree().root.content_scale_factor = scale
+	get_window().size *= scale
 	multiplayer.peer_connected.connect(_on_player_connected)
 	multiplayer.peer_disconnected.connect(_on_player_disconnected)
 	multiplayer.connected_to_server.connect(_on_connected_ok)
