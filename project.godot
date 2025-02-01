@@ -29,6 +29,10 @@ window/handheld/orientation=1
 
 project/assembly_name="TicTacToe"
 
+[gui]
+
+theme/custom="res://themes/global_theme.tres"
+
 [rendering]
 
 renderer/rendering_method="mobile"
